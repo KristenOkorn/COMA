@@ -30,7 +30,7 @@ r_month = '08'
 r_day = '31'
 
 # select file to export
-case = '2022-08-06'
+case = '2022-08-16'
 
 if case == '2022-08-02':
     filename_COMA = ['../Data/2022-08-02/n2o-co_2022-08-02_f0000.txt']
@@ -94,41 +94,137 @@ elif case == '2022-08-15':
     day = '15'
 elif case == '2022-08-16':
     filename_COMA = ['../Data/2022-08-16/n2o-co_2022-08-16_f0000.txt']
-    output_name = 'COMA_WB57_20220816_RA.ict'
+    output_name = 'acclip-COMA-CON2O_WB57_20220816_RA.ict'
     t0 = datetime(2022,8,16,3,10)
     t1 = datetime(2022,8,16,8,17)
+    cal_starts = {'cal_1' : datetime(2022,8,16,3,29,13),
+                  'cal_2' : datetime(2022,8,16,4,14,13),
+                  'cal_3' : datetime(2022,8,16,4,59,13),
+                  'cal_4' : datetime(2022,8,16,5,44,13),
+                  'cal_5' : datetime(2022,8,16,6,29,13),
+                  'cal_6' : datetime(2022,8,16,7,14,13),
+                  'cal_7' : datetime(2022,8,16,7,59,13)
+                  }
+    cal_ends = {'cal_1' : datetime(2022,8,16,3,30,37),
+                'cal_2' : datetime(2022,8,16,4,15,36),
+                'cal_3' : datetime(2022,8,16,5,0,40),
+                'cal_4' : datetime(2022,8,16,5,45,44),
+                'cal_5' : datetime(2022,8,16,6,31,4),
+                'cal_6' : datetime(2022,8,16,7,15,58),
+                'cal_7' : datetime(2022,8,16,8,0,38)
+                }
+    press_starts = {"badP_1" : datetime(2022,8,16,7,51,18)}
+    press_ends = {"badP_1" : datetime(2022,8,16,8,17,0)}
     year = '2022'
     month = '08'
     day = '16'
 elif case == '2022-08-19':
     filename_COMA = ['../Data/2022-08-19/n2o-co_2022-08-19_f0000.txt']
-    output_name = 'COMA_WB57_20220819_RA.ict'
+    output_name = 'acclip-COMA-CON2O_WB57_20220819_RA.ict'
     t0 = datetime(2022,8,19,0,30)
     t1 = datetime(2022,8,19,6,15)
+    cal_starts = {#'cal_1' : datetime(2022,8,19,0,25,17),
+                  'cal_2' : datetime(2022,8,19,1,10,17),
+                  'cal_3' : datetime(2022,8,19,1,55,17),
+                  'cal_4' : datetime(2022,8,19,2,40,17),
+                  'cal_5' : datetime(2022,8,19,3,25,17),
+                  'cal_6' : datetime(2022,8,19,4,10,17),
+                  'cal_7' : datetime(2022,8,19,4,55,17),
+                  'cal_8' : datetime(2022,8,19,5,40,17)
+                  }
+    cal_ends = {#'cal_1' : datetime(2022,8,19,0,26,54),
+                'cal_2' : datetime(2022,8,19,1,11,49),
+                'cal_3' : datetime(2022,8,19,1,56,45),
+                'cal_4' : datetime(2022,8,19,2,41,49),
+                'cal_5' : datetime(2022,8,19,3,26,49),
+                'cal_6' : datetime(2022,8,19,4,12,1),
+                'cal_7' : datetime(2022,8,19,4,57,11),
+                'cal_8' : datetime(2022,8,19,5,42,11)
+                }
+    press_starts = {"badP_1" : datetime(2022,8,19,5,47,0)}
+    press_ends = {"badP_1" : datetime(2022,8,19,6,15,0)}
     year = '2022'
     month = '08'
     day = '19'
 elif case == '2022-08-21':
     filename_COMA = ['../Data/2022-08-21/n2o-co_2022-08-21_f0000.txt']
-    output_name = 'COMA_WB57_20220821_RA.ict'
-    t0 = datetime(2022,8,21,0,53)
-    t1 = datetime(2022,8,21,6,30)
+    output_name = 'acclip-COMA-CON2O_WB57_20220821_RA.ict'
+    t0 = datetime(2022,8,21,0,35)
+    t1 = datetime(2022,8,21,6,31)
+    cal_starts = {'cal_1' : datetime(2022,8,21,1,22,12),
+                  'cal_2' : datetime(2022,8,21,2,7,12),
+                  'cal_3' : datetime(2022,8,21,2,52,12),
+                  'cal_4' : datetime(2022,8,21,3,37,12),
+                  'cal_5' : datetime(2022,8,21,4,22,12),
+                  'cal_6' : datetime(2022,8,21,5,7,12),
+                  'cal_7' : datetime(2022,8,21,5,52,12)
+                  }
+    cal_ends = {'cal_1' : datetime(2022,8,21,1,23,35),
+                'cal_2' : datetime(2022,8,21,2,8,38),
+                'cal_3' : datetime(2022,8,21,2,53,38),
+                'cal_4' : datetime(2022,8,21,3,39,11),
+                'cal_5' : datetime(2022,8,21,4,23,53),
+                'cal_6' : datetime(2022,8,21,5,8,56),
+                'cal_7' : datetime(2022,8,21,5,53,54)
+                }
+    press_starts = {"badP_1" : datetime(2022,8,21,4,22,17),
+                    "badP_2" : datetime(2022,8,21,0,38,40)
+                    }
+    press_ends = {"badP_1" : datetime(2022,8,21,4,29,10),
+                  "badP_2" : datetime(2022,8,21,0,52,44)
+                  }
     year = '2022'
     month = '08'
     day = '21'
 elif case == '2022-08-25':
     filename_COMA = ['../Data/2022-08-25/n2o-co_2022-08-25_corrected.txt']
-    output_name = 'COMA_WB57_20220825_RA.ict'
+    output_name = 'acclip-COMA-CON2O_WB57_20220825_RA.ict'
     t0 = datetime(2022,8,25,1,00)
     t1 = datetime(2022,8,25,6,35)
+    cal_starts = {'cal_1' : datetime(2022,8,25,1,22,53),
+                  'cal_2' : datetime(2022,8,25,2,7,53),
+                  'cal_3' : datetime(2022,8,25,2,52,53),
+                  'cal_4' : datetime(2022,8,25,3,37,53),
+                  'cal_5' : datetime(2022,8,25,4,22,53),
+                  'cal_6' : datetime(2022,8,25,5,7,53),
+                  'cal_7' : datetime(2022,8,25,5,52,53)
+                  }
+    cal_ends = {'cal_1' : datetime(2022,8,25,1,24,16),
+                'cal_2' : datetime(2022,8,25,2,9,18),
+                'cal_3' : datetime(2022,8,25,2,54,18),
+                'cal_4' : datetime(2022,8,25,3,39,25),
+                'cal_5' : datetime(2022,8,25,4,24,46),
+                'cal_6' : datetime(2022,8,25,5,9,37),
+                'cal_7' : datetime(2022,8,25,5,54,36)
+                }
     year = '2022'
     month = '08'
     day = '25'
 elif case == '2022-08-26':
-    filename_COMA = ['../Data/2022-08-26/n2o-co_2022-08-26_corrected.txt']
-    output_name = 'COMA_WB57_20220826_RA.ict'
-    t0 = datetime(2022,8,25,0,55)
-    t1 = datetime(2022,8,25,6,55)
+    filename_COMA = ['../Data/2022-08-26/n2o-co_2022-08-26_f0000.txt']
+    output_name = 'acclip-COMA-CON2O_WB57_20220826_RA.ict'
+    t0 = datetime(2022,8,26,0,55)
+    t1 = datetime(2022,8,26,6,55)
+    cal_starts = {'cal_1' : datetime(2022,8,26,1,25,49),
+                  'cal_2' : datetime(2022,8,26,2,10,49),
+                  'cal_3' : datetime(2022,8,26,2,55,49),
+                  'cal_4' : datetime(2022,8,26,3,40,49),
+                  'cal_5' : datetime(2022,8,26,4,25,49),
+                  'cal_6' : datetime(2022,8,26,5,10,49),
+                  'cal_7' : datetime(2022,8,26,5,55,49),
+                  'cal_8' : datetime(2022,8,26,6,40,49)
+                  }
+    cal_ends = {'cal_1' : datetime(2022,8,26,1,27,13),
+                'cal_2' : datetime(2022,8,26,2,12,16),
+                'cal_3' : datetime(2022,8,26,2,57,14),
+                'cal_4' : datetime(2022,8,26,3,42,20),
+                'cal_5' : datetime(2022,8,26,4,27,26),
+                'cal_6' : datetime(2022,8,26,5,12,34),
+                'cal_7' : datetime(2022,8,26,5,57,42),
+                'cal_8' : datetime(2022,8,26,6,42,15),
+                }
+    press_starts = {"badP_1" : datetime(2022,8,26,5,55,45)}
+    press_ends = {"badP_1" : datetime(2022,8,26,5,57,15)}
     year = '2022'
     month = '08'
     day = '26'
@@ -178,28 +274,31 @@ for index, row in df.iterrows():
         #Set the midpoint to 0.5s after Time_Start
         df.iloc[index,1] = df.iloc[index,0] +0.5 * timedelta(milliseconds=1000)
 
-#get our dictionaries of dates & times as lists
-cal_starts_vals = list(cal_starts.values())
-cal_ends_vals = list(cal_ends.values())
-press_starts_vals = list(press_starts.values())
-press_ends_vals = list(press_ends.values())
-
 #replace CO and N2O with -9.999 during calibration cycle times
-for i in range(len(cal_starts)):
-    cal_ix = np.asarray(np.where((df['Time_Start']>= cal_starts_vals[i]) & (df['Time_Start']<= cal_ends_vals[i]))).T
-    df.loc[cal_ix[0,0]:cal_ix[len(cal_ix)-1,0],'CO'] = -9.999
-    df.loc[cal_ix[0,0]:cal_ix[len(cal_ix)-1,0],'N2O'] = -9.999
+if 'cal_starts' in locals():
+    cal_starts_vals = list(cal_starts.values())
+    cal_ends_vals = list(cal_ends.values())
+    for i in range(len(cal_starts)):
+        cal_ix = np.asarray(np.where((df['Time_Start']>= cal_starts_vals[i]) & (df['Time_Start']<= cal_ends_vals[i]))).T
+        df.loc[cal_ix[0,0]:cal_ix[len(cal_ix)-1,0],'CO'] = -9.999
+        df.loc[cal_ix[0,0]:cal_ix[len(cal_ix)-1,0],'N2O'] = -9.999
 
 #replace N2O  with -9.999 during flagged pressure times
-for i in range(len(press_starts)):
-    press_ix = np.asarray(np.where((df['Time_Start']>= press_starts_vals[i]) & (df['Time_Start']<= press_ends_vals[i]))).T
-    df.loc[press_ix[0,0]:press_ix[len(press_ix)-1,0],'N2O'] = -9.999
+if 'press_starts' in locals():
+    press_starts_vals = list(press_starts.values())
+    press_ends_vals = list(press_ends.values())
+    for i in range(len(press_starts)):
+        press_ix = np.asarray(np.where((df['Time_Start']>= press_starts_vals[i]) & (df['Time_Start']<= press_ends_vals[i]))).T
+        df.loc[press_ix[0,0]:press_ix[len(press_ix)-1,0],'N2O'] = -9.999
 
 # %% output data
 # convert timestamp to seconds after midnight
 start_time_midnight = [(t.hour * 3600) + (t.minute * 60) + t.second + (t.microsecond / 1000000.0) for t in df['Time_Start']]
 mid_time_midnight = [(t.hour * 3600) + (t.minute * 60) + t.second + (t.microsecond / 1000000.0) for t in df["Time_Mid"]]
 end_time_midnight = [(t.hour * 3600) + (t.minute * 60) + t.second + (t.microsecond / 1000000.0) for t in df["Time_End"]]
+
+#save out a version with normal datetime stamps for easier plotting
+df.to_excel('{}_cleaned.xls'.format(case))
 
 # create final DataFrame with desired variables
 #convert CO and N2O to ppbv here as well
@@ -208,6 +307,7 @@ df = pd.DataFrame({'Time_Start': start_time_midnight,
                    'Time_End': end_time_midnight,
                     'CO': df['CO'] * 1000,
                     'N2O': df['N2O'] * 1000})
+
 
 # loop that saves string formatted (commas, decimal places) data
 # create new file; overwrites if needed
@@ -262,3 +362,9 @@ with open(output_name, 'r+') as f:
 
 #also save as a csv to re-plot
 df.to_csv('edited.csv')  
+
+#delete variables that might mess with our next run
+if 'press_starts'in locals():
+    del press_starts
+if 'cal_starts'in locals():
+    del cal_starts

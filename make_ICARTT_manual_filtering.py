@@ -27,10 +27,10 @@ from load_flight_functions import read_COMA
 #revision date (today's date)
 r_year = '2022'
 r_month = '09'
-r_day = '06'
+r_day = '07'
 
 # select file to export
-case = '2022-09-01'
+case = '2022-08-15'
 
 if case == '2022-08-02':
     filename_COMA = ['../Data/2022-08-02/n2o-co_2022-08-02_f0000.txt']
@@ -105,10 +105,12 @@ elif case == '2022-08-15':
     t0 = datetime(2022,8,15,3,29)
     t1 = datetime(2022,8,15,8,9)
     #also have to flag data from power cycle
-    cycle_starts = {'cycle_1' : datetime(2022,8,15,4,38,20)}
-    cycle_ends = {'cycle_1' : datetime(2022,8,15,5,8,0)}
+    cycle_starts = {'cycle_1' : datetime(2022,8,15,4,51,20)} #only times when data doesn't exist
+    cycle_ends = {'cycle_1' : datetime(2022,8,15,5,4,39)}
     press_starts = {"badP_1" : datetime(2022,8,15,6,27,30)}
     press_ends = {"badP_1" : datetime(2022,8,15,6,50,30)}
+    other_starts = {'other_1' : datetime(2022,8,15,4,44,40)} #other times to cut out (i.e. instrument warmup after power cycle)
+    other_ends = {'other_1' : datetime(2022,8,15,4,51,21)} #will remove both CO & N2O
     year = '2022'
     month = '08'
     day = '15'
@@ -427,28 +429,35 @@ if 'press_starts' in locals():
         press_ix = np.asarray(np.where((df['Time_Start']>= press_starts_vals[i]) & (df['Time_Start']<= press_ends_vals[i]))).T
         df.loc[press_ix[0,0]:press_ix[len(press_ix)-1,0],'N2O'] = -9.999
 
-# #replace suspect data points with -9.999 before/after power cycle
-# if 'cycle_starts' in locals():
-#     cycle_starts_vals = list(cycle_starts.values())
-#     cycle_ends_vals = list(cycle_ends.values())
-#     for i in range(len(cycle_starts)):
-#         cycle_ix = np.asarray(np.where((df['Time_Start']>= cycle_starts_vals[i]) & (df['Time_Start']<= cycle_ends_vals[i]))).T
-#         df.loc[cycle_ix[0,0]:cycle_ix[len(cycle_ix)-1,0],'CO'] = -9.999
-#         df.loc[cycle_ix[0,0]:cycle_ix[len(cycle_ix)-1,0],'N2O'] = -9.999
+#replace CO and N2O with -9.999 during other times with issues
+if 'other_starts' in locals():
+    other_starts_vals = list(other_starts.values())
+    other_ends_vals = list(other_ends.values())
+    for i in range(len(other_starts)):
+        other_ix = np.asarray(np.where((df['Time_Start']>= other_starts_vals[i]) & (df['Time_Start']<= other_ends_vals[i]))).T
+        df.loc[other_ix[0,0]:other_ix[len(other_ix)-1,0],'CO'] = -9.999
+        df.loc[other_ix[0,0]:other_ix[len(other_ix)-1,0],'N2O'] = -9.999
+
+#If power cycled, also fill discontinuities with -9.999
+if'cycle_starts' in locals():
+    cycle_starts_vals = list(cycle_starts.values())
+    cycle_ends_vals = list(cycle_ends.values())
+    for i in range(len(cycle_starts)):
+        diff = cycle_ends_vals[i] - cycle_starts_vals[i]
+        num_new_pts = round(diff / timedelta(seconds=0.995)) #round to nearest integer
+        for k in range(num_new_pts):
+            #get a new row with the "fake" timestamp
+            newrow = pd.DataFrame([cycle_starts_vals[i] + (k+1)*timedelta(seconds=0.995),
+                                  cycle_starts_vals[i] + timedelta(seconds=0.4975) + (k+1)*timedelta(seconds=0.995),
+                                  cycle_starts_vals[i] + timedelta(seconds = 0.994) + (k+1)*timedelta(seconds=0.995),
+                                  -9.999,-9.999,9]).T
+            newrow.columns =['Time_Start', 'Time_Mid', 'Time_End', 'CO', 'N2O', 'MIU']
+            #add this data to our main dataframe
+            df = pd.concat([df,newrow])
         
-#     #also fill discontinuities with -9.999
-#     for i in range(cycle_ix[len(cycle_ix)-1,0]):
-#         #if the gap between points is greater than 1 Hz, add a point
-#         np.where(df.iloc[i+1,0] > df.iloc[i,0]+ timedelta(seconds=1)) #typical spacing = 0.993-0.994
-        
-#         newrow = pd.DataFrame([pd.to_datetime(df.iloc[i,0] + timedelta(seconds=0.994)),
-#                   pd.to_datetime(df.iloc[i,1] + timedelta(seconds=0.994)),
-#                   pd.to_datetime(df.iloc[i,2] + timedelta(seconds=0.994)),
-#                   -9.999],['N2O', -9.999],['MIU', 9]])
-#         #add this data to our main dataframe
-#         df = df.append(newrow,ignore_index=True)
-# #make sure our datetimes are all in ascending order        
-        
+#make sure our datetimes are all in ascending order        
+df.sort_values(by=['Time_Start'])           
+ 
 # %% output data
 # convert timestamp to seconds after midnight
 start_time_midnight = [(t.hour * 3600) + (t.minute * 60) + t.second + (t.microsecond / 1000000.0) for t in df['Time_Start']]
@@ -523,3 +532,7 @@ if 'press_starts'in locals():
     del press_starts
 if 'cal_starts'in locals():
     del cal_starts
+if 'other_starts'in locals():
+    del other_starts
+if 'cycle_starts'in locals():
+    del cycle_starts

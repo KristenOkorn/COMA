@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Sep  8 22:41:25 2022
+
+@author: okorn
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Spyder Editor
 
 This is a temporary script file.
@@ -37,7 +44,7 @@ r_month = '09'
 r_day = '08'
 
 # select file to export
-case = '2022-08-15'
+case = '2022-08-06'
 
 if case == '2022-07-18':
     filename_COMA = ['../Data/2022-07-18/n2o-co_2022-07-18_f0002.txt']
@@ -512,10 +519,10 @@ header += 'Time_Start, seconds, elapsed time from 0000 UTC   \n' # name of indep
 header += '4\n' # number of dependent variables
 header += '1,1,1,1\n' # scale factors of dependent variables
 header += '-9999.00,-9999.00,-9999.00,-9999.00\n' # missing data flags of dependent variables
-header += 'Time_End, seconds, elapsed time from 0000 UTC\n' # dependent variable short name, units, standard name
+header += 'Time_Stop, seconds, elapsed time from 0000 UTC\n' # dependent variable short name, units, standard name
 header += 'Time_Mid, seconds, elapsed time from 0000 UTC\n' # dependent variable short name, units, standard name
-header += 'CO, ppbv, Gas_CO_InSitu_S_DVMR\n' # dependent variable short name, units, standard name
-header += 'N2O, ppbv, Gas_N2O_InSitu_S_DVMR\n' # (repeat as necessary)
+header += 'CO, ppbv, CO, Gas_CO_InSitu_S_DVMR\n' # dependent variable short name, units, standard name
+header += 'N2O, ppbv, N2O, Gas_N2O_InSitu_S_DVMR\n' # (repeat as necessary)
 header += '0\n' # number of special comment lines (not including this line)
 header += '18\n' # number of normal comment lines (not including this line)
 header += 'PI_CONTACT_INFO: James.R.Podolske@nasa.gov\n'
@@ -535,7 +542,7 @@ header += 'STIPULATIONS_ON_USE: This is PRELIMINARY data. Users must consult the
 header += 'OTHER_COMMENTS: N/A\n'
 header += 'REVISION: RA\n'
 header += 'RA: preliminary field data, subject to corrections due to calibrations, time lags, and future analysis results\n'
-header += 'Time_Start,Time_End,Time_Mid,CO,N2O\n'
+header += 'Time_Start,Time_Stop,Time_Mid,CO,N2O\n'
 
 # append the defined header to the already created data file
 with open(output_name, 'r+') as f:

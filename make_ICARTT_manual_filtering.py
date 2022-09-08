@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Aug 25 06:21:07 2022
 
 @author: okorn
@@ -27,7 +34,7 @@ from load_flight_functions import read_COMA
 #revision date (today's date)
 r_year = '2022'
 r_month = '09'
-r_day = '07'
+r_day = '08'
 
 # select file to export
 case = '2022-08-15'
@@ -470,8 +477,8 @@ df.to_excel('{}_cleaned.xls'.format(case))
 # create final DataFrame with desired variables
 #convert CO and N2O to ppbv here as well
 df = pd.DataFrame({'Time_Start': start_time_midnight,
-                   'Time_Mid': mid_time_midnight,
                    'Time_End': end_time_midnight,
+                   'Time_Mid': mid_time_midnight,
                     'CO': df['CO'] * 1000,
                     'N2O': df['N2O'] * 1000})
 
@@ -484,7 +491,7 @@ with open(output_name,"w") as ofile:
 
 #create file header
 # refer to ICARTT 2.0 specifications for more details
-header = '36,V02_2016\n' # number of lines in header, file format index
+header = '36,1001,V02_2016\n' # number of lines in header, file format index
 header += 'Podolske, James\n' # PI name
 header += 'NASA Ames Research Center\n' # PI affiliation
 header += 'Carbon monOxide Measurement from Ames (COMA)\n' # data source description
@@ -496,8 +503,8 @@ header += 'Time_Start, seconds, elapsed time from 0000 UTC   \n' # name of indep
 header += '4\n' # number of dependent variables
 header += '1,1,1,1\n' # scale factors of dependent variables
 header += '-9999.00,-9999.00,-9999.00,-9999.00\n' # missing data flags of dependent variables
-header += 'Time_Mid, seconds, elapsed time from 0000 UTC\n' # dependent variable short name, units, standard name
 header += 'Time_End, seconds, elapsed time from 0000 UTC\n' # dependent variable short name, units, standard name
+header += 'Time_Mid, seconds, elapsed time from 0000 UTC\n' # dependent variable short name, units, standard name
 header += 'CO, ppbv, Gas_CO_InSitu_S_DVMR\n' # dependent variable short name, units, standard name
 header += 'N2O, ppbv, Gas_N2O_InSitu_S_DVMR\n' # (repeat as necessary)
 header += '0\n' # number of special comment lines (not including this line)
@@ -519,7 +526,7 @@ header += 'STIPULATIONS_ON_USE: This is PRELIMINARY data. Users must consult the
 header += 'OTHER_COMMENTS: N/A\n'
 header += 'REVISION: RA\n'
 header += 'RA: preliminary field data, subject to corrections due to calibrations, time lags, and future analysis results\n'
-header += 'Time_Start,Time_Mid,Time_End,CO,N2O\n'
+header += 'Time_Start,Time_End,Time_Mid,CO,N2O\n'
 
 # append the defined header to the already created data file
 with open(output_name, 'r+') as f:

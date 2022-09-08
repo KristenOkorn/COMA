@@ -39,6 +39,15 @@ r_day = '08'
 # select file to export
 case = '2022-08-15'
 
+if case == '2022-07-18':
+    filename_COMA = ['../Data/2022-07-18/n2o-co_2022-07-18_f0002.txt']
+    output_name = 'acclip-COMA-CON2O_WB57_20220718_RA.ict'
+    t0 = datetime(2022,7,18,15,27)
+    t1 = datetime(2022,7,18,21,34)
+    year = '2022'
+    month = '07'
+    day = '18'
+    
 if case == '2022-08-02':
     filename_COMA = ['../Data/2022-08-02/n2o-co_2022-08-02_f0000.txt']
     output_name = 'acclip-COMA-CON2O_WB57_20220802_RA.ict'

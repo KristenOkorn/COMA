@@ -44,7 +44,7 @@ r_month = '09'
 r_day = '08'
 
 # select file to export
-case = '2022-08-06'
+case = '2022-08-15'
 
 if case == '2022-07-18':
     filename_COMA = ['../Data/2022-07-18/n2o-co_2022-07-18_f0002.txt']
@@ -128,12 +128,12 @@ elif case == '2022-08-15':
     t0 = datetime(2022,8,15,3,29)
     t1 = datetime(2022,8,15,8,9)
     #also have to flag data from power cycle
-    cycle_starts = {'cycle_1' : datetime(2022,8,15,4,51,20)} #only times when data doesn't exist
+    cycle_starts = {'cycle_1' : datetime(2022,8,15,4,51,22)} #only times when data doesn't exist
     cycle_ends = {'cycle_1' : datetime(2022,8,15,5,4,39)}
     press_starts = {"badP_1" : datetime(2022,8,15,6,27,30)}
     press_ends = {"badP_1" : datetime(2022,8,15,6,50,30)}
     other_starts = {'other_1' : datetime(2022,8,15,4,44,40)} #other times to cut out (i.e. instrument warmup after power cycle)
-    other_ends = {'other_1' : datetime(2022,8,15,4,51,21)} #will remove both CO & N2O
+    other_ends = {'other_1' : datetime(2022,8,15,4,51,22)} #will remove both CO & N2O
     year = '2022'
     month = '08'
     day = '15'
@@ -477,9 +477,11 @@ if'cycle_starts' in locals():
             newrow.columns =['Time_Start', 'Time_Mid', 'Time_End', 'CO', 'N2O', 'MIU']
             #add this data to our main dataframe
             df = pd.concat([df,newrow])
-        
+
+#replace the original df index with our timestamps
+ 
 #make sure our datetimes are all in ascending order        
-df.sort_values(by=['Time_Start'])           
+df = df.sort_values(by='Time_Start')           
  
 # %% output data
 # convert timestamp to seconds after midnight

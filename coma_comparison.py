@@ -15,10 +15,12 @@ import matplotlib.dates as mdates
 
 # select file to export
 case = '2022-08-04'
-caseAKA = '20220804'
 
 #create a directory path for us to pull from / save to
 path = 'C:\\Users\\okorn\\Documents\\Data\\{}'.format(case)
+
+#get the date in an alternate format
+caseAKA = case.replace('-', '')
 
 #load in data from COMA
 #get the filename to be loaded
@@ -94,23 +96,26 @@ coma = coma.replace(-9999, 'NaN')
 coma = coma[coma[' CO_GEOS'] >= 0]
 
 #now make some plots!
-fig1, ax = plt.subplots(2, 1, figsize=(8,5.5),sharex=True)
+fig1, ax = plt.subplots(2, 1, figsize=(8,5.5),sharex=False)
 
 #subplot 1- COMA CO data
-ax[0].scatter(coma.index,coma[' G_ALT_MMS'],c=coma['CO'], label = "COMA CO (ppb)") 
+new = ax[0].scatter(coma.index,coma[' G_ALT_MMS'],c=coma['CO']) 
 ax[0].grid('on')
 ax[0].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
 ax[0].set_ylabel('Altitude (m)')
 ax[0].set_xlabel('Time, UTC')
 ax[0].set_ylim([0, 200000])
-fig1.legend(loc='upper right', bbox_to_anchor=(0.35, 0.64))
+ax[0].title.set_text('{} COMA CO (ppb)'.format(case))
+plt.colorbar(new,ax=ax[0])
 
 
-ax[1].scatter(coma.index,coma[' G_ALT_MMS'],c=coma[' CO_GEOS'], label = "GEOS CO (mol/mol)")
+new2 = ax[1].scatter(coma.index,coma[' G_ALT_MMS'],c=coma[' CO_GEOS'])
 ax[1].grid('on')
+ax[1].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
 ax[1].set_ylabel('Altitude (m)')
 ax[1].set_xlabel('Time, UTC')
 ax[1] = plt.gca()
 ax[1].set_ylim([0, 200000])
-ax[1].legend(loc = 'lower left')
-fig1.tight_layout()
+ax[1].title.set_text('{} GEOS CO (mol/mol)'.format(case))
+fig1.tight_layout(pad=2.0)
+plt.colorbar(new2,ax=ax[1])

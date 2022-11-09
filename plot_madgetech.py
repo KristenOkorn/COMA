@@ -16,70 +16,20 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-# select files to analyze
-case = '2022-08-29'
+# EDIT THESE-------------------------------------------------
+case = '2022-08-31'
+cur_day = datetime(2021,8,6)
+f_file = 'f0000' #usually f0000, will sometimes be f0002 etc.
+#------------------------------------------------------------
 
-if case == '2022-08-04': #RF04
-    filename_MT = '../Data/2022-08-04/8.4.2022 flight Madgetech.xlsx'
-    filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220804_RA.ict'
-    filename_COMA = ['../Data/2022-08-04/n2o-co_2022-08-04_f0000.txt']
-    cur_day = datetime(2022,8,4)
-elif case == '2022-08-06': #RF05
-    filename_MT = '../Data/2022-08-06/8.6.2022 flight Madgetech.xlsx'
-    filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220806_RA.ict'
-    filename_COMA = ['../Data/2022-08-06/n2o-co_2022-08-06_f0000.txt']    
-    cur_day = datetime(2022,8,6)
-elif case == '2022-08-12': #RF06
-    filename_MT = '../Data/2022-08-12/8.12.2022 flight Madgetech.xlsx'
-    filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220812_RA.ict'
-    filename_COMA = ['../Data/2022-08-12/n2o-co_2022-08-12_f0000.txt']    
-    cur_day = datetime(2022,8,12)
-elif case == '2022-08-13': #RF07
-    filename_MT = '../Data/2022-08-13/8.13.2022 flight Madgetech.xlsx'
-    filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220813_RA.ict'
-    filename_COMA = ['../Data/2022-08-13/n2o-co_2022-08-13_f0000.txt']    
-    cur_day = datetime(2022,8,13)
-elif case == '2022-08-15': #RF08
-    filename_MT = '../Data/2022-08-15/8.15.2022 flight Madgetech.xlsx'
-    filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220815_RA.ict'
-    filename_COMA = ['../Data/2022-08-15/n2o-co_2022-08-15_f0000.txt',
-                     '../Data/2022-08-15/n2o-co_2022-08-15_f0001.txt']    
-    cur_day = datetime(2022,8,15)
-elif case == '2022-08-18': #RF09
-    filename_MT = '../Data/2022-08-18/8.18.2022 flight Madgetech.xlsx'
-    filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220818_RA.ict'
-    filename_COMA = ['../Data/2022-08-18/n2o-co_2022-08-18_f0000.txt']
-    cur_day = datetime(2022,8,18)
-elif case == '2022-08-19': #RF10
-     filename_MT = '../Data/2022-08-19/8.19.2022 flight Madgetech.xlsx'
-     filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220819_RA.ict'
-     filename_COMA = ['../Data/2022-08-19/n2o-co_2022-08-19_f0000.txt']
-     cur_day = datetime(2022,8,19)   
-elif case == '2022-08-21': #RF11
-     filename_MT = '../Data/2022-08-21/8.21.2022 flight Madgetech.xlsx'
-     filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220821_RA.ict'
-     filename_COMA = ['../Data/2022-08-21/n2o-co_2022-08-21_f0000.txt']
-     cur_day = datetime(2022,8,21)   
-elif case == '2022-08-23': #RF12
-     filename_MT = '../Data/2022-08-23/8.23.2022 flight Madgetech.xlsx'
-     filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220823_RA.ict'
-     filename_COMA = ['../Data/2022-08-23/n2o-co_2022-08-23_f0000.txt']
-     cur_day = datetime(2022,8,23)  
-elif case == '2022-08-25': #RF12
-     filename_MT = '../Data/2022-08-25/8.25.2022 flight Madgetech.xlsx'
-     filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220825_RA.ict'
-     filename_COMA = ['../Data/2022-08-25/n2o-co_2022-08-25_corrected.txt']
-     cur_day = datetime(2022,8,25)
-elif case == '2022-08-26': #RF13
-     filename_MT = '../Data/2022-08-26/8.26.2022 flight Madgetech.xlsx'
-     filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220826_RA.ict'
-     filename_COMA = ['../Data/2022-08-26/n2o-co_2022-08-26_f0000.txt']
-     cur_day = datetime(2022,8,26)
-elif case == '2022-08-29': #RF13
-     filename_MT = '../Data/2022-08-29/8.29.2022 flight Madgetech.xlsx'
-     filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_20220829_RA.ict'
-     filename_COMA = ['../Data/2022-08-29/n2o-co_2022-08-29_f0000.txt']
-     cur_day = datetime(2022,8,29) 
+#get the correct files to loop through for our date/case
+caseAKA = case.replace('-', '')
+caseAKA2 = case.replace('-', '')
+
+filename_COMA = ['../Data/{}/n2o-co_{}_{}.txt'.format(case,case,f_file)]
+filename_MMS = '../Data/_OtherData_/ACCLIP-MMS-1HZ_WB57_{}_RA.ict'.format(caseAKA)
+filename_MT = '../Data/{}/{} flight Madgetech.xlsx'.format(case,case)
+
 # set font sizes
 plt.rc('axes', labelsize=12) # xaxis and yaxis labels
 plt.rc('xtick', labelsize=12) # xtick labels
@@ -134,4 +84,4 @@ ax[1].set_ylabel('Cell pressure, Torr')
 ax[1].legend(loc = 'lower left')
 fig1.tight_layout()
 
-#fig1.savefig('fig1.png',dpi=300)
+fig1.savefig('fig1.png',dpi=300)

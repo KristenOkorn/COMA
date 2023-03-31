@@ -27,10 +27,10 @@ from load_flight_functions import read_COMA
 #revision date (today's date)
 r_year = '2023'
 r_month = '3'
-r_day = '14'
+r_day = '31'
 
 # select file to export
-case = '2022-08-15'
+case = '2022-09-13'
 
 if case == '2022-07-16':
     filename_COMA = ['../Data/2022-07-16/n2o-co_2022-07-16_f0002.txt']
@@ -647,8 +647,8 @@ elif case == '2022-09-12':
                 'cal_6' : datetime(2022,9,13,2,20,24),
                 'cal_7' : datetime(2022,9,13,3,5,12)
                 }
-    press_starts = {"badP_1" : datetime(2022,9,12,2,30)}
-    press_ends = {"badP_1" : datetime(2022,9,13,3,19)}
+    press_starts = {"badP_2" : datetime(2022,9,13,2,34)}
+    press_ends = {"badP_2" : datetime(2022,9,13,19,9)}
     year = '2022'
     month = '09'
     day = '12'
@@ -659,7 +659,8 @@ elif case == '2022-09-13':
     output_name = 'acclip-COMA-CON2O_WB57_20220913_RB.ict'
     t0 = datetime(2022,9,13,20)
     t1 = datetime(2022,9,14,1,11)
-    cal_starts = {'cal_1' : datetime(2022,9,13,20,18,53),
+    cal_starts = {'badP_1' : datetime(2022,9,13,20,0,0),
+                  'cal_1' : datetime(2022,9,13,20,19,0),
                   'cal_2' : datetime(2022,9,13,21,3,56),
                   'cal_3' : datetime(2022,9,13,21,48,54),
                   'cal_4' : datetime(2022,9,13,22,33,54),
@@ -667,7 +668,8 @@ elif case == '2022-09-13':
                   'cal_6' : datetime(2022,9,13,23,59,54),
                   'cal_7' : datetime(2022,9,14,0,39)
                   }
-    cal_ends = {'cal_1' : datetime(2022,9,13,20,30),
+    cal_ends = {'badP_1' : datetime(2022,9,13,20,18,0),
+                'cal_1' : datetime(2022,9,13,20,20,50),
                 'cal_2' : datetime(2022,9,13,21,6),
                 'cal_3' : datetime(2022,9,13,21,51,12),
                 'cal_4' : datetime(2022,9,13,22,37),
@@ -892,7 +894,7 @@ header += 'PLATFORM: NASA WB-57F 926\n'
 header += 'LOCATION: Latitude, Longitude, and Altitude included in MMS files\n'
 header += 'ASSOCIATED_DATA: N/A\n'
 header += 'INSTRUMENT_INFO: In-situ gas-phase CO/N2O Analyzer (LGR/ABB Serial no. 15-0251). Mounted in pallet 3.\n'
-header += 'DATA_INFO: Measurements before and during takeoff, after landing, and during periodic calibration cycles have been omitted. Additionally, N2O data were removed during periods when the measurement cell pressure deviated from the set point (52.8 Torr) by more than 0.25%.\n'
+header += 'DATA_INFO: Measurements before and during takeoff, after landing, during periodic calibration cycles, and a 10 second buffer on either side of calibration cycles have been omitted. Additionally, when the measurement cell pressure deviated from the rolling median pressure for that flight by more than 0.25%, N2O data were always removed, and CO data were removed on a case-by-case basis.\n'
 header += 'UNCERTAINTY: to be specified in R0 release\n'
 header += 'ULOD_FLAG: -7777\n'
 header += 'ULOD_VALUE: N/A\n'

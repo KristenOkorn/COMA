@@ -21,8 +21,8 @@ from load_flight_functions import V_to_T
 from load_flight_functions import read_MMS
 
 # EDIT THESE--------------------------------------
-case = '2022-08-31'
-cur_day = datetime(2022,8,31)
+case = '2022-08-06'
+cur_day = datetime(2022,8,6)
 #-------------------------------------------------
 #get the correct files to loop through for our date/case
 caseAKA = case.replace('-', '')
@@ -77,9 +77,9 @@ cb5.ax.tick_params(labelsize=10)
 fig3.tight_layout()
 
 #save it out
-savePath = 'C:\\Users\\okorn\\Documents\\COMA-main\\RB Plots - AGU\\'
+sPath = 'C:\\Users\\okorn\\Documents\\COMA-main\\RB Plots - AGU\\'
 #Create the full path with the figure name
-savePath = os.path.join(savePath,'Altitude_timeseries_CO_{}'.format(caseAKA))
+savePath = os.path.join(sPath,'Altitude_timeseries_CO_{}'.format(caseAKA))
 # Save the figure to a filepath
 fig3.savefig(savePath)
 
@@ -102,8 +102,6 @@ cb4.set_label('N2O (ppb)', fontsize=10)
 cb4.ax.tick_params(labelsize=10)
 fig2.tight_layout()
 
-#save it out
-sPath = 'C:\\Users\\okorn\\Documents\\COMA-main\\RB Data\\RB xls\\'
 #Create the full path with the figure name
 savePath = os.path.join(sPath,'Altitude_timeseries_N2O_{}'.format(caseAKA))
 # Save the figure to a filepath
@@ -167,7 +165,7 @@ fig.tight_layout()
 
 #save it out
 #Create the full path with the figure name
-savePath = os.path.join(sPath,'Map_CO_{}'.format(caseAKA))
+savePath = os.path.join(sPath,'Map_N2O_{}'.format(caseAKA))
 # Save the figure to a filepath
 fig.savefig(savePath)
 #----------------------------------------------------------

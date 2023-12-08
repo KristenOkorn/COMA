@@ -92,6 +92,33 @@ for n in range(len(dates)):
     #only keep the columns we need
     COMA = COMA[['CO','N2O']]
     
+    #-----------------------------------------------------------------------    
+    #load in the merge data for adding a tropopause line
+    acclippath = 'C:\\Users\\okorn\\Documents\\COMA-main\\Merge'
+    #get the filename
+    acclipfilename = "ACCLIP-mrg01-WB57_merge_{}_R0.ict".format(dateAKA)
+    #Create full file path for reading file
+    acclipfilePath = os.path.join(acclippath, acclipfilename)
+    
+    with open(acclipfilePath, 'r') as file:
+        first_line = file.readline()#Read the first line
+        skip=first_line[0:3]
+ 
+    #load in the file
+    acclip = pd.read_csv(acclipfilePath,skiprows=int(skip)-1,header=0)
+    #convert seconds past midnight to HH:MM:SS
+    acclip['datetime'] = date + pd.to_timedelta(acclip['Time_Start'], unit='s')
+    #make the datetime the index
+    acclip= acclip.set_index('datetime')
+    #Convert the index to a DatetimeIndex and set the nanosecond values to zero
+    acclip.index = pd.to_datetime(acclip.index,format="%Y-%m-%d %H:%M:%S",errors='coerce')
+    #only keep the column we need - 
+    acclip = acclip[[' TROPPB_GEOS']]
+    #rename column
+    acclip = acclip.rename(columns={' TROPPB_GEOS':'tropo_P'})
+    #replace negatives with NaN
+    acclip = acclip[acclip.iloc[:, 0] >= 0]
+    
     #-----------------------------------------------------------------------  
     #finally load in the MMS data
     if dateAKA != '20220821': #use the normal version
@@ -114,6 +141,7 @@ for n in range(len(dates)):
     #synchronize all our data
     merge = pd.merge(temp,COMA,left_index=True, right_index=True)
     merge = pd.merge(merge,MMS,left_index=True, right_index=True)
+    merge = pd.merge(merge,acclip,left_index=True, right_index=True)
     
     # Remove rows where the GEOS CO is missing
     merge = merge[merge['GEOS CO'] >= 0]
@@ -123,6 +151,8 @@ for n in range(len(dates)):
     fig3, ax3 = plt.subplots(1, 1, figsize=(6, 3.5), dpi=200)
     #background scatter
     sc5 = ax3.scatter(merge.index, merge['Pressure'], c=merge['GEOS CO'], s=15)
+    #also add the tropopause on the same axes
+    ax3.plot(merge.index, merge['tropo_P'], c='red')
     #now separate axes for altitude plot
     #Create a twin Axes sharing the xaxis
     ax4 = ax3.twinx()

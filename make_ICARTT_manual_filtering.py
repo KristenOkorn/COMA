@@ -790,6 +790,28 @@ for index, row in df.iterrows():
         #Set the midpoint to 0.5s after Time_Start
         df.iloc[index,1] = df.iloc[index,0] +0.5 * timedelta(milliseconds=1000)
 
+#get the datetimes ready
+#get the starting reference datetime (July 16, 2022, 00:00:00)
+ref_datetime = datetime(2022, 7, 16, 0, 0, 0)
+#Calculate the time difference
+time_difference = df['Time_Start'] - ref_datetime
+# Convert the time difference to days (including fractional part)
+df['datenum'] = time_difference.dt.days + time_difference.dt.seconds / (24 * 3600)
+
+#now do the actual correction for each pollutant
+for n in range(len(pollutants)):
+    #get ready for linear regression
+    X = df[['{}'.format(pollutants[n]), 'datenum']]
+    #rename to match what we previously used
+    X.columns.values[0] = 'measured'
+    #get the path of the previously fitted model
+    modelPath = 'C:\\Users\\okorn\\Documents\\COMA_calibrations\\{}_multivariate_model.joblib'.format(pollutants[n])
+    #load in the previously fitted model
+    model = joblib.load(modelPath)
+    #apply the previously fitted model
+    df['{}'.format(pollutants[n])] = model.predict(X)
+
+
 #replace CO and N2O with -9.999 during calibration cycle times
 if 'cal_starts' in locals():
     cal_starts_vals = list(cal_starts.values())
@@ -857,28 +879,6 @@ if 'offset' in locals():
     df['Time_End'] = df['Time_End'] - pd.Timedelta(seconds=offset)    
     
 #now get ready to apply the calibration coeffiecients (oct 2024 addition)
-
-#get the datetimes ready
-#get the starting reference datetime (July 16, 2022, 00:00:00)
-ref_datetime = datetime(2022, 7, 16, 0, 0, 0)
-#Calculate the time difference
-time_difference = df['Time_Start'] - ref_datetime
-# Convert the time difference to days (including fractional part)
-df['datenum'] = time_difference.dt.days + time_difference.dt.seconds / (24 * 3600)
-
-#now do the actual correction for each pollutant
-for n in range(len(pollutants)):
-    #get ready for linear regression
-    X = df[['{}'.format(pollutants[n]), 'datenum']]
-    #rename to match what we previously used
-    X.columns.values[0] = 'measured'
-    #get the path of the previously fitted model
-    modelPath = 'C:\\Users\\okorn\\Documents\\COMA_calibrations\\{}_multivariate_model.joblib'.format(pollutants[n])
-    #load in the previously fitted model
-    model = joblib.load(modelPath)
-    #apply the previously fitted model
-    df['{}'.format(pollutants[n])] = model.predict(X)
-
 
 #delete out any timestamps where Time_end is larger than the subsequent Time_start
 #for index, row in df.iterrows():

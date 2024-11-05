@@ -52,7 +52,7 @@ if case == '2022-07-16':
     
 if case == '2022-07-18':
     filename_COMA = ['../Data/2022-07-18/n2o-co_2022-07-18_f0002.txt']
-    output_name = 'acclip-COMA-CON2O_WB57_20220718_2.ict'
+    output_name = 'acclip-COMA-CON2O_WB57_20220718_R2.ict'
     t0 = datetime(2022,7,18,15,28)
     t1 = datetime(2022,7,18,21,34)
     cal_starts = {'cal_1' : datetime(2022,7,18,15,41,45),
